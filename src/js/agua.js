@@ -20,7 +20,7 @@ leitura.oninput = myStorage.UpdateInputValue
 
 submit.onclick = () => {
     error.innerHTML = ''
-    
+
     ipcRenderer.send('run-automate-agua',
         username.value,
         password.value,
@@ -34,5 +34,5 @@ ipcRenderer.on('run-automate-agua', (event, err) => {
         console.log(err)
         error.innerHTML = err
     }
-        
+
 })
