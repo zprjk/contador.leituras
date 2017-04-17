@@ -8,176 +8,103 @@
 </head>
 
 <body>
-    <div id="container">
-        <input id="tab-1" type="radio" name="tab-group" checked="checked" />
-        <label for="tab-1">Luz</label>
-        <input id="tab-2" type="radio" name="tab-group" />
-        <label for="tab-2">Água</label>
-        <input id="tab-3" type="radio" name="tab-group" />
-        <label for="tab-3">Gás</label>
+    <div class="">
+        <div class="tabs is-centered is-toggle is-large is-fullwidth">
+            <ul>
+                <li class="is-active">
+                    <a id="1">Luz</a>
+                </li>
+                <li>
+                    <a id="2">Água</a>
+                </li>
+                <li>
+                    <a id="3">Gás</a>
+                </li>
+            </ul>
+        </div>
 
-        <div id="content">
-            <!-- LUZ -->
-            <div id="content-1">
-                Leitura <input type="text" id="luz-leitura">
-                <button id="luz-submit">Iniciar</button>
-                <br><br> Username <input type="text" id="luz-username">
-                <br> Password <input type="password" id="luz-password">
-                <br> Cod Ident Local <input type="text" id="luz-codIdentLocal">
-
-                <br><br>
-                <p id="luz-error-found" style="color:red"></p>
+        <div id="container-1">
+            <!-- LEITURA -->
+            <div class="box field is-grouped">
+                <p class="control">
+                    <a class="button is-primary is-large" id="luz-submit">Iniciar</a>
+                </p>
+                <p class="control is-expanded">
+                    <input class="input is-large" type="number" placeholder="Introduzir leitura" id="luz-leitura">
+                </p>
             </div>
-
-            <!-- AGUA -->
-            <div id="content-2">
-                Leitura <input type="text" id="agua-leitura">
-                <button id="agua-submit">Iniciar</button>
-                <br><br> Username <input type="text" id="agua-username">
-                <br> Password <input type="password" id="agua-password">
-                <br> Código Cliente <input type="text" id="agua-codCliente">
-
-                <br><br>
-                <p id="agua-error-found" style="color:red"></p>
+            <!-- INFO -->
+            <div class="box">
+                <!-- USERNAME & PASSWORD -->
+                <div class="level field is-grouped">
+                    <label class="control">Username</label>
+                    <p class="control is-expanded">
+                        <input class="input" type="text" id="luz-username">
+                    </p>
+                    <label class="control">Password</label>
+                    <p class="control is-expanded">
+                        <input class="input " type="password" id="luz-password">
+                    </p>
+                </div>
+                <!-- COD IDENT LOCAL -->
+                <div class="level field is-grouped">
+                    <label style="margin-right: 10px;">Cód. Ident. Local</label>
+                    <p class="control is-expanded">
+                        <input class="input" type="number" id="luz-codIdentLocal">
+                    </p>
+                </div>
             </div>
-
-            <!-- GAS -->
-            <div id="content-3">
-                Leitura <input type="text" id="gas-leitura">
-                <button id="gas-submit">Iniciar</button>
-                <br><br> Username <input type="text" id="gas-username">
-                <br> Password <input type="password" id="gas-password">
-                <br> Nº fornecimento <input type="text" id="gas-numFornecimento">
-
-                <br><br>
-                <p id="gas-error-found" style="color:red"></p>
+            <!-- ERROR -->
+            <div class="notification is-danger" id="luz-error-found" style="display:none">
+                Danger lorem ipsum dolor sit amet
             </div>
         </div>
+
+        <div id="container-2"></div>
+
+        <div id="container-3"></div>
     </div>
 
     <script>
         //initialize
         require('./js/luz')
-        require('./js/agua')
-        require('./js/gas')
+        // require('./js/agua')
+        // require('./js/gas')
     </script>
 
-    <style>
-        * {
-            font-family: Arial, sans;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
+    <!-- Tabs UI functionality -->
+    <script>
+        const CreateTab = id => {
+            return {
+                button: document.getElementById(id),
+                container: document.getElementById('container-' + id)
+            }
         }
-        
-        h1 {
-            margin: 1em 0;
-            text-align: center;
+
+        const OnClickTab = e => {
+            let id = e.srcElement.id
+            let button = e.srcElement
+            let container = document.getElementById('container-' + id)
+
+            activeTab.button.parentElement.classList.remove('is-active')
+            activeTab.container.style.display = 'none'
+            button.parentElement.classList.add('is-active')
+            container.style.display = 'block'
+
+            activeTab = tabs[parseInt(id) - 1]
         }
-        
-        #container {
-            margin: 0 auto;
-            padding: 5px 5px;
-            width: 100%;
-        }
-        
-        #container>input {
-            height: 2.5em;
-            visibility: hidden;
-        }
-        
-        #container label {
-            background: #f9f9f9;
-            border-radius: .25em .25em 0 0;
-            color: #888;
-            cursor: pointer;
-            display: block;
-            float: left;
-            font-size: 1em;
-            height: 2.5em;
-            line-height: 2.5em;
-            margin-right: .25em;
-            padding: 0 1.5em;
-            text-align: center;
-        }
-        
-        #container input:hover+label {
-            background: #ddd;
-            color: #666;
-        }
-        
-        #container input:checked+label {
-            background: #f1f1f1;
-            color: #444;
-            position: relative;
-            z-index: 6;
-        }
-        
-        #content {
-            background: #f1f1f1;
-            border-radius: 0 .25em .25em .25em;
-            min-height: 20em;
-            position: relative;
-            width: 100%;
-            z-index: 5;
-        }
-        
-        #content div {
-            opacity: 0;
-            padding: 1.5em;
-            position: absolute;
-            z-index: -100;
-        }
-        
-        #content-1 p {
-            clear: both;
-            margin-bottom: 1em;
-        }
-        
-        #content-1 p.left img {
-            float: left;
-            margin-right: 1em;
-        }
-        
-        #content-1 p.last {
-            margin-bottom: 0;
-        }
-        
-        #content-2 p {
-            float: left;
-            width: 48.5%;
-        }
-        
-        #content-2 p.column-right {
-            margin-left: 3%;
-        }
-        
-        #content-2 p img {
-            display: block;
-            margin: 0 auto 1em auto;
-        }
-        
-        #content-3 p,
-        #content-3 ul {
-            margin-bottom: 1em;
-        }
-        
-        #content-3 ul {
-            margin-left: 2em;
-        }
-        
-        #container input#tab-1:checked~#content #content-1,
-        #container input#tab-2:checked~#content #content-2,
-        #container input#tab-3:checked~#content #content-3 {
-            opacity: 1;
-            z-index: 100;
-        }
-        
-        input.visible {
-            visibility: visible !important;
-        }
-    </style>
+
+        const tabs = [
+            CreateTab('1'),
+            CreateTab('2'),
+            CreateTab('3')
+        ]
+
+        let activeTab = tabs[0];
+
+        tabs.forEach(tab => tab.button.onclick = OnClickTab)
+
+    </script>
 </body>
 
 </html>

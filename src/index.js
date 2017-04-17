@@ -9,8 +9,8 @@ let win
 
 function createWindow() {
     // Create the browser window.
-    win = new BrowserWindow({ width: 500, height: 430 })
-
+    //win = new BrowserWindow({ width: 500, height: 430 })
+    win = new BrowserWindow({ width: 580, height: 920 })
     // and load the index.html of the app.
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
@@ -19,7 +19,7 @@ function createWindow() {
     }))
 
     // Open the DevTools.
-    //in.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     // Emitted when the window is closed.
     win.on('closed', () => {

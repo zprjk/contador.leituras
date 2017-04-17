@@ -19,6 +19,7 @@ codIdentLocal.oninput = myStorage.UpdateInputValue
 leitura.oninput = myStorage.UpdateInputValue
 
 submit.onclick = () => {
+    error.style.display = 'none'
     error.innerHTML = ''
 
     ipcRenderer.send('run-automate-luz',
@@ -32,6 +33,7 @@ submit.onclick = () => {
 ipcRenderer.on('run-automate-luz', (event, err) => {
     if (err) {
         console.log(err)
+        error.style.display = 'block'
         error.innerHTML = err
     }
 })
