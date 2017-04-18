@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.min.css">
 </head>
 
-<body>
-    <div class="">
-        <div class="tabs is-centered is-toggle is-large is-fullwidth">
+<body style="background-color: blanchedalmond; height: 100vh;">
+    <div>
+        <div class="tabs is-centered is-toggle is-large is-fullwidth" style="background-color:white; margin-bottom: 5px;">
             <ul>
                 <li class="is-active">
                     <a id="1">Luz</a>
@@ -23,7 +23,8 @@
             </ul>
         </div>
 
-        <div id="container-1">
+        <!-- LUZ -->
+        <div class="column" id="container-1">
             <!-- LEITURA -->
             <div class="box field is-grouped">
                 <p class="control">
@@ -34,7 +35,7 @@
                 </p>
             </div>
             <!-- INFO -->
-            <div class="box">
+            <div class="box" style="margin-bottom: 0px;">
                 <!-- USERNAME & PASSWORD -->
                 <div class="level field is-grouped">
                     <label class="control">Username</label>
@@ -54,22 +55,108 @@
                     </p>
                 </div>
             </div>
+            <small class="column has-text-centered">
+                <a onclick="handleRedirect('https://edponline.edp.pt/Auth/Paginas/SignIn.aspx')">edp website</a>
+           </small>
+
             <!-- ERROR -->
-            <div class="notification is-danger" id="luz-error-found" style="display:none">
+            <div class="notification is-danger has-text-centered" id="luz-error-found" style="display:none">
                 Danger lorem ipsum dolor sit amet
             </div>
         </div>
 
-        <div id="container-2"></div>
+        <!-- AGUA -->
+        <div class="column" id="container-2" style="display:none">
+            <!-- LEITURA -->
+            <div class="box field is-grouped">
+                <p class="control">
+                    <a class="button is-primary is-large" id="agua-submit">Iniciar</a>
+                </p>
+                <p class="control is-expanded">
+                    <input class="input is-large" type="number" placeholder="Introduzir leitura" id="agua-leitura">
+                </p>
+            </div>
+            <!-- INFO -->
+            <div class="box" style="margin-bottom: 0px;">
+                <!-- USERNAME & PASSWORD -->
+                <div class="level field is-grouped">
+                    <label class="control">Username</label>
+                    <p class="control is-expanded">
+                        <input class="input" type="text" id="agua-username">
+                    </p>
+                    <label class="control">Password</label>
+                    <p class="control is-expanded">
+                        <input class="input" type="password" id="agua-password">
+                    </p>
+                </div>
+                <!-- COD IDENT LOCAL -->
+                <div class="level field is-grouped">
+                    <label style="margin-right: 10px;">Cód. Cliente</label>
+                    <p class="control is-expanded">
+                        <input class="input" type="number" id="agua-codCliente">
+                    </p>
+                </div>
+            </div>
+            <small class="column has-text-centered">
+                <a onclick="handleRedirect('https://www.epal.pt/epalnet/epalnet.aspx')">epal website</a>
+           </small>
 
-        <div id="container-3"></div>
+            <!-- ERROR -->
+            <div class="notification is-danger has-text-centered" id="agua-error-found" style="display:none">
+                Danger lorem ipsum dolor sit amet
+            </div>
+        </div>
+
+        <!-- GAS -->
+        <div class="column" id="container-3" style="display:none">
+            <!-- LEITURA -->
+            <div class="box field is-grouped">
+                <p class="control">
+                    <a class="button is-primary is-large" id="gas-submit">Iniciar</a>
+                </p>
+                <p class="control is-expanded">
+                    <input class="input is-large" type="number" placeholder="Introduzir leitura" id="gas-leitura">
+                </p>
+            </div>
+            <!-- INFO -->
+            <div class="box" style="margin-bottom: 0px;">
+                <!-- USERNAME & PASSWORD -->
+                <div class="level field is-grouped">
+                    <label class="control">Username</label>
+                    <p class="control is-expanded">
+                        <input class="input" type="text" id="gas-username">
+                    </p>
+                    <label class="control">Password</label>
+                    <p class="control is-expanded">
+                        <input class="input " type="password" id="gas-password">
+                    </p>
+                </div>
+                <!-- COD IDENT LOCAL -->
+                <div class="level field is-grouped">
+                    <label style="margin-right: 10px;">Num. Fornecimento</label>
+                    <p class="control is-expanded">
+                        <input class="input" type="number" id="gas-numFornecimento">
+                    </p>
+                </div>
+            </div>
+            <small class="column has-text-centered">
+                <a onclick="handleRedirect('https://gn.galpenergia.com/balcaodigital')">galp website</a>
+           </small>
+
+            <!-- ERROR -->
+            <div class="notification is-danger has-text-centered" id="gas-error-found" style="display:none">
+                Danger lorem ipsum dolor sit amet
+            </div>
+        </div>
     </div>
 
     <script>
         //initialize
         require('./js/luz')
-        // require('./js/agua')
-        // require('./js/gas')
+        require('./js/agua')
+        require('./js/gas')
+
+        const handleRedirect = url =>  require('electron').shell.openExternal(url)
     </script>
 
     <!-- Tabs UI functionality -->
@@ -103,7 +190,6 @@
         let activeTab = tabs[0];
 
         tabs.forEach(tab => tab.button.onclick = OnClickTab)
-
     </script>
 </body>
 
