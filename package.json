@@ -1,7 +1,7 @@
 {
   "name": "contador.leituras",
   "version": "1.0.0",
-  "description": "",
+  "description": "Registo automático das leituras dos contadores (luz, água e gás) nos websites EDP, EPAL e Galp",
   "main": "./src/index.js",
   "scripts": {
     "start": "electron .",
@@ -24,6 +24,10 @@
   },
   "build": {
     "appId": "contador.leituras.id",
-    "asar": false
+    "asar": false,
+    "compression": "store",
+    "win": {
+      "icon": "./src/favicon.ico"
+    }
   }
 }

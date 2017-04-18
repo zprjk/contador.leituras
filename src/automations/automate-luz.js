@@ -6,7 +6,7 @@ module.exports = (userName, password, codIdentLocal, leitura, cb) => {
 
     const Nightmare = require("nightmare")
     const nightmare = Nightmare({
-        electronPath: require('../../node_modules/electron'),
+        electronPath: require('../../node_modules/nightmare/node_modules/electron'),
         show: true,
         width: 1080,
         height: 920
@@ -51,7 +51,7 @@ module.exports = (userName, password, codIdentLocal, leitura, cb) => {
         //open comunicar leitura modal
         .click("div#comunicarleituras input[href='#myModalComunicar']")
         .wait(() => document.querySelector("div#myModalComunicar").style.display === 'block')
-        .wait(800)
+        .wait(600)
         //type leitura
         .type("div#myModalComunicar input#txtValorLeitura_S", LEITURA)
         .then(() => cb(null))

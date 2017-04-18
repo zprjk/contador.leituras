@@ -6,7 +6,7 @@ module.exports = (userName, password, numForn, leitura, cb) => {
 
     const Nightmare = require("nightmare")
     const nightmare = Nightmare({
-        electronPath: require('../../node_modules/electron'),
+        electronPath: require('../../node_modules/nightmare/node_modules/electron'),
         show: true,
         width: 1080,
         height: 920

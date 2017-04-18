@@ -8,7 +8,7 @@ module.exports = (userName, password, codClnt, leitura, cb) => {
     require('nightmare-iframe-manager')(Nightmare);
 
     const nightmare = Nightmare({
-        electronPath: require('../../node_modules/electron'),
+        electronPath: require('../../node_modules/nightmare/node_modules/electron'),
         show: true,
         width: 1080,
         height: 920
