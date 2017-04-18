@@ -42,15 +42,14 @@ module.exports = (userName, password, codIdentLocal, leitura, cb) => {
 
         //+Contract Detail Page
         .wait("form[action='/Contratos/Paginas/PagamentosFaturas.aspx']")
-        //wait 'till everything loads up
-        //.wait(() => document.querySelector("div#Loading_Ballance").style.display === 'none')
         //go to the leituras tab
         .click(".plcd .menu_plcd a[href='/Contratos/Paginas/Leituras.aspx']")
-        .wait("div#comunicarleituras input[href='#myModalComunicar']")
+         //wait comunicar button is available
         .wait("div#divLeituras table#leituras_Eletricidade")
-
+        .wait(() => document.querySelector("#ctl00_PlaceHolderMain_LeiturasElectricidade_lblIdealReadingDate").style.display != 'none')
+        
         //open comunicar leitura modal
-        .click("input[href='#myModalComunicar']")
+        .click("div#comunicarleituras input[href='#myModalComunicar']")
         .wait(() => document.querySelector("div#myModalComunicar").style.display === 'block')
         .wait(800)
         //type leitura
