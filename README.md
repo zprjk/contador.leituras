@@ -5,7 +5,7 @@ Usa [Nightmare](https://github.com/segmentio/nightmare) e [Electron](https://git
 [EPAL - Água](https://www.epal.pt/epalnet/epalnet.aspx)  
 [Galp - Gás](https://gn.galpenergia.com/balcaodigital)  
 
-*Aplicação preenche os dados nós 3 sites mas nunca faz o envio da leitura. Utilizador apenas precisa clicar em submeter para assegurar que tudo correu bem*
+*Aplicação preenche os dados nos 3 sites mas nunca faz o envio da leitura. Utilizador apenas precisa clicar em submeter para assegurar que tudo correu bem*
 
 # Instalação
 ```sh
