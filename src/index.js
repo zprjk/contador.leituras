@@ -1,5 +1,5 @@
 'use strict';
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -7,10 +7,42 @@ const url = require('url')
 // be closed automatically when the JavaScript object is garbage collected.
 let win
 
+const template = [
+    {
+        label: 'File',
+        submenu: [
+            { role: 'close' },
+        ]
+    },
+    {
+        label: 'View',
+        submenu: [
+            { role: 'reload' },
+            { role: 'forcereload' },
+            { type: 'separator' },
+            { role: 'resetzoom' },
+            { role: 'zoomin' },
+            { role: 'zoomout' },
+        ]
+    },
+    {
+        label: 'About',
+        submenu: [
+            {
+                label: 'GitHub',
+                click() { require('electron').shell.openExternal('https://github.com/zprjk/contador.leituras') }
+            }
+        ]
+    }
+]
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
+
 function createWindow() {
     // Create the browser window.
     //win = new BrowserWindow({ width: 500, height: 430 })
-    win = new BrowserWindow({ width: 570, height: 500 , resizable: false, maximizable: false })
+    win = new BrowserWindow({ width: 570, height: 500, resizable: false, maximizable: false })
     // and load the index.html of the app.
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
