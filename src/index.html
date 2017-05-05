@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>contador.leituras</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.min.css">
 </head>
 
@@ -156,6 +155,8 @@
         require('./js/agua')
         require('./js/gas')
 
+        const pkg = require('../package.json')
+        document.title = pkg.name + ' - ' + pkg.version
         const handleRedirect = url =>  require('electron').shell.openExternal(url)
     </script>
 
