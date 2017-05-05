@@ -53,8 +53,9 @@ module.exports = (userName, password, codClnt, leitura, cb) => {
         .enterIFrame('frame[src="top.aspx"]')
         .wait(() => document.querySelector("span#lbl_cliente").innerHTML != '')
         .evaluate((codCliente) => {
+            let sanitizeCodCliente = parseInt(codCliente);
             let codClienteStr = document.querySelector('span#lbl_cliente').innerHTML
-            let validateStr = 'cód. ' + codCliente;
+            let validateStr = 'cód. ' + sanitizeCodCliente;
 
             let isValidCodCliente = codClienteStr.includes(validateStr)
             return isValidCodCliente
