@@ -8,11 +8,16 @@
     "pack": "build --dir",
     "build": "build"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": "zprjk/contador.leituras",
+  "author": {
+    "name": "José Pedro Rocha",
+    "email": "zepedrojk@gmail.com",
+    "url": ""
+  },
+  "license": "MIT",
   "devDependencies": {
     "electron": "^1.6.7",
-    "electron-builder": "^17.0.1"
+    "electron-builder": "^17.3.0"
   },
   "dependencies": {
     "nightmare": "^2.10.0",
