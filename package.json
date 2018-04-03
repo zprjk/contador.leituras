@@ -16,16 +16,16 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.6.7",
-    "electron-builder": "^17.3.0"
+    "electron": "^1.8.4",
+    "electron-builder": "^20.8.1"
   },
   "dependencies": {
-    "nightmare": "^2.10.0",
+    "nightmare": "^3.0.1",
     "nightmare-iframe-manager": "0.0.4"
   },
   "engines": {
-    "node": ">=7.4.0",
-    "npm": ">=4.1.1"
+    "node": ">=8.11.1",
+    "npm": ">=5.8.0"
   },
   "build": {
     "appId": "contador.leituras.id",
