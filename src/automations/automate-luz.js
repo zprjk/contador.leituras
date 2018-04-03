@@ -14,7 +14,7 @@ module.exports = (userName, password, codIdentLocal, leitura, cb) => {
 
     nightmare
         //+Login Page
-        .goto("https://edponline.edp.pt/Auth/Paginas/SignIn.aspx")
+        .goto("https://edponline.edp.pt/login")
         //Login form fill up and submit
         .wait('div.tab-pane.active form .form-holder input[name="username"]')
         .type('div.tab-pane.active form .form-holder input[name="username"]', USER_NAME)
