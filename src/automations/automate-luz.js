@@ -6,7 +6,7 @@ module.exports = (userName, password, codIdentLocal, leitura, cb) => {
 
     const Nightmare = require("nightmare")
     const nightmare = Nightmare({
-        electronPath: require('../../node_modules/nightmare/node_modules/electron'),
+        electronPath: require('../../node_modules/electron'),
         show: true,
         width: 1080,
         height: 920
@@ -16,49 +16,46 @@ module.exports = (userName, password, codIdentLocal, leitura, cb) => {
         //+Login Page
         .goto("https://edponline.edp.pt/Auth/Paginas/SignIn.aspx")
         //Login form fill up and submit
-        .type('form .form-holder input[name="username"]', USER_NAME)
-        .type('form .form-holder input[name="password"]', PASSWORD)
-        .click('form .form-holder button[type="submit"')
-
+        .wait('div.tab-pane.active form .form-holder input[name="username"]')
+        .type('div.tab-pane.active form .form-holder input[name="username"]', USER_NAME)
+        .type('div.tab-pane.active form .form-holder input[name="password"]', PASSWORD)
+        .click('div.tab-pane.active form .form-holder a.btn.btn-primary')
         //+Contract list page
-        .wait('form[action="/Contratos/Paginas/usercontracts.aspx"]')
+        .wait('div.mainMenu li.contratos.active')
         //wait for the contract list to load-up
-        .wait("#contract-list-views .contract-list")
+        .wait("ul.contractList edp-contract-item .contract-item")
         //get the correct contract id and click in the 'details' btn
         .evaluate((codIdentLocal, done) => {
-            let nodeList = document.querySelectorAll('#contract-list-views .contract-list .sec_bloc .infos ul li span[data-ng-bind="contract.idCode"]')
+            let nodeList = angular.element(
+                document.querySelectorAll(
+                    'ul.contractList .contract-item .contract-info-blocks .ibContract .contractAutomaticInfo .infoLine2 span[ng-hide]'
+                )
+            )
             let nodes = [...nodeList] //convert nodeList into an array (es6 way)
-            let node = nodes.find(n => n.innerHTML == codIdentLocal)
+            let node = nodes.find(n => n.textContent.contains(codIdentLocal))
 
-            if (node == null)
-                done(`Código Identificação inválido: ${codIdentLocal}`)
+            // if (node == null)
+            //     done(`Código Identificação inválido: ${codIdentLocal}`)
 
-            let buttonDivisionNode = node.parentElement.parentElement.parentElement.parentElement //(.sec_bloc)
-            let buttonElem = buttonDivisionNode.querySelector("div#linkDetaildiv a#linkDetail")
+            if( node == null)
+                done(JSON.stringify(nodeList, null, 2))
+
+            let buttonNode = node.parentElement.parentElement.parentElement.parentElement
+            let buttonElem = buttonNode.querySelector(".actionsList li.leituras a")
 
             setTimeout(() => { buttonElem.click(); done(null) }, 500)
 
         }, COD_IDENT_LOCAL)
 
-        //+Contract Detail Page
-        .wait("form[action='/Contratos/Paginas/PagamentosFaturas.aspx']")
-        //go to the leituras tab
-        .click(".plcd .menu_plcd a[href='/Contratos/Paginas/Leituras.aspx']")
-         //wait comunicar button is available
-        .wait("div#divLeituras table#leituras_Eletricidade")
-        .wait(() => document.querySelector("#ctl00_PlaceHolderMain_LeiturasElectricidade_lblIdealReadingDate").style.display != 'none')
-        
-        //open comunicar leitura modal
-        .click("div#comunicarleituras input[href='#myModalComunicar']")
-        .wait(() => document.querySelector("div#myModalComunicar").style.display === 'block')
-        .wait(600)
+        //+Enviar leitura de eletricidade Modal
+        .wait(".modal-dialog .modal-body .contract-readings .consumption-name input#leiturasS")
         //type leitura
-        .type("div#myModalComunicar input#txtValorLeitura_S", LEITURA)
+        .type(".modal-dialog .modal-body .contract-readings .consumption-name input#leiturasS", LEITURA)
         .then(() => cb(null))
 
         //In case of any error
-        .catch(error => {
-            console.error(`Error: ${error}`)
-            nightmare.end().then(() => cb(error))
+        .catch(err => {
+            console.error(`Error: ${err}`)
+            nightmare.end().then(() => cb(err.toString()))
         })
 }
