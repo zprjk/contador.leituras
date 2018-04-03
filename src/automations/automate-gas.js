@@ -6,7 +6,7 @@ module.exports = (userName, password, numForn, leitura, cb) => {
 
     const Nightmare = require("nightmare")
     const nightmare = Nightmare({
-        electronPath: require('../../node_modules/nightmare/node_modules/electron'),
+        electronPath: require('../../node_modules/electron'),
         show: true,
         width: 1080,
         height: 920
@@ -48,8 +48,8 @@ module.exports = (userName, password, numForn, leitura, cb) => {
         })
 
         //In case of any error
-        .catch(error => {
-            console.error(`Error: ${error}`)
-            nightmare.end().then(() => cb(error))
+        .catch(err => {
+            console.error(`Error: ${err}`)
+            nightmare.end().then(() => cb(err.toString()))
         })
 }
