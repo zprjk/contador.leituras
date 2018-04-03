@@ -34,11 +34,8 @@ module.exports = (userName, password, codIdentLocal, leitura, cb) => {
             let nodes = [...nodeList] //convert nodeList into an array (es6 way)
             let node = nodes.find(n => n.textContent.contains(codIdentLocal))
 
-            // if (node == null)
-            //     done(`Código Identificação inválido: ${codIdentLocal}`)
-
-            if( node == null)
-                done(JSON.stringify(nodeList, null, 2))
+            if (node == null)
+                done(`Código Identificação inválido: ${codIdentLocal}`)
 
             let buttonNode = node.parentElement.parentElement.parentElement.parentElement
             let buttonElem = buttonNode.querySelector(".actionsList li.leituras a")
